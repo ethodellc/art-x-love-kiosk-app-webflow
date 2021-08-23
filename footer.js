@@ -1,6 +1,9 @@
 console.log("Source: https://webflow.com/dashboard/sites/akron-stories-kiosk-app/code");
 console.log("current page: " + window.location.pathname);
 
+/**
+ * Trac
+ */
 let kioskScreen = null;
 
 ///////////
@@ -21,6 +24,8 @@ function autoCloseContinueWatchingPrompt() {
   showWelcomeScreen();
 }
 
+// This will tell the app to listen for user events that indicate an active user
+// If detected, the onKioskUserActive handler will be called
 function detectActiveUser() {
   console.log('Preparing to detect events that would indicate the kiosk user is active...');
 
@@ -53,10 +58,23 @@ function getMaxMinutesToShowContinueWatchingPrompt() {
   return parseInt(sessionStorage.getItem("maxMinutesToShowContinueWatchingPrompt"), 10) || 3;
 }
 
+// 
+/**
+ * Returns the number of minutes the user has been inactive for
+ * 
+ * @returns number
+ */
 function getMinutesOfInactivity() {
   return getMinutesOfInactivitySince(getStartTime())
 }
 
+/**
+ * Returns the number of minutes the user has been inactive compared to a given point in time
+ * 
+ * @param {number} startTime 
+ * @returns {number} The decimal value representing the elapsted time in minutes.  
+ * E.g. 1.5 would be 1 and a half minutes and 0.75 would be 45 minutes
+ */
 function getMinutesOfInactivitySince(startTime) {
   let millisecondsOfInactivity = Math.floor(
     new Date().getTime() - startTime.getTime()
@@ -115,7 +133,7 @@ function isOnStoriesScreen() {
 
 // This function is called if user activity is detected
 function onKioskUserActive() {
-  console.log('Kiosk user is active, restarting inactivity timer.');
+  //console.log('Kiosk user is active, restarting inactivity timer.');
   restartTimer();
 }
 
@@ -188,7 +206,7 @@ function showWelcomeScreen() {
 
 // Starts the inactivity timer if it has not been started already
 function startTimer() {
-  console.log('Starting or resuming inactivity timer loop...');
+  //console.log('Starting or resuming inactivity timer loop...');
   // This will first attempt to get a timer out of storage.  If it doesn't exist yet, it will restart the timer
   let startTime = new Date(
     sessionStorage.getItem("startTime") || resetStartTime()
@@ -211,8 +229,8 @@ function startTimer() {
 
   window.dispatchEvent(new CustomEvent("akronStories.timerStarted"));
   timerStartedAt = getStartTime();
-  console.log('Initial start time: ', timerStartedAt);
-  console.log('Minutes of inactivity since timer initially started: ', getMinutesOfInactivitySince(timerStartedAt));
+  //console.log('Initial start time: ', timerStartedAt);
+  //console.log('Minutes of inactivity since timer initially started: ', getMinutesOfInactivitySince(timerStartedAt));
 }
 
 
