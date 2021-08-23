@@ -208,6 +208,8 @@ function show(elementId, display = "block") {
 function showContinueWatchingPrompt() {
   console.log('Showing the continue watching prompt...');
   show("js-continue-watching-prompt", "flex");
+  document.getElementById('js-continue-watching-prompt').style.opacity = "100";
+  document.getElementById('js-continue-watching-prompt').style.webkitOpacity = "100";
   continueWatchingPromptTimeout = setTimeout(
     autoCloseContinueWatchingPrompt,
     getMaxMinutesToShowContinueWatchingPrompt() * 60000 // 60000 ms = 1 min
