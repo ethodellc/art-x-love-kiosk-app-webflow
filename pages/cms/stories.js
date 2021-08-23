@@ -20,8 +20,12 @@ currentCategoryButton.click();
 // If we want to play sequentially....
 setTimeout(showRandomStory, secondsToWaitUntilNextStory * 1000);
 
+console.log('Setting up click event listener for the video navigation menu buttons...');
+
 // Whenever a video navigation menu button is clicked...
 document.addEventListener('click', function (event) {
+
+  console.log('Click detected.   Event target is: ' + event.target);
 
   // If the click event is not for a video navigation button, then exit
   if (!event.target.matches('.js-video-navigation-menu-button')) return
