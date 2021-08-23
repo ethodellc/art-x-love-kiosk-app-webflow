@@ -20,7 +20,8 @@ let userInactivityTimer = null;
 // if the user has been inactive and didn't choose an answer
 // By default, it returns to the welcome screen
 function autoCloseContinueWatchingPrompt() {
-  console.log('Continue watching prompt was shown, but the user did not respond. Returning to welcome screen.');
+  console.log('Continue watching prompt was shown, but the user did not respond.  Hiding the prompt and then returning to the welcome screen');
+  hideContinueWatchingPrompt();
   showWelcomeScreen();
 }
 
@@ -137,15 +138,26 @@ function onKioskUserActive() {
   restartTimer();
 }
 
+/**
+ * This function should be called in the event that the kiosk user has been inactive
+ * for too long.
+ * 
+ * If they have been, and are on the stories screen, it will display a "continue watching?" prompt
+ * If they have been, and are not on the stories screen, it will show a random story
+ * 
+ * @see showContinueWatchingPrompt
+ * @see showRandomStory
+ * @link https://trello.com/c/jOnt9Hdm/35-8-17-21-create-a-continue-watching-prompt
+ * @link https://trello.com/c/mSHaOt9y/14-7-29-21-implement-global-inactivity-timer
+ */
 function onKioskUserInactiveForTooLong() {
-  //console.log('Kiosk user has been inactive for too long, restarting inactivity timer.');
-  //restartTimer();
+  console.log('Kiosk user has been inactive for too long...');
 
   if (isOnStoriesScreen()) {
-    console.log('Showing continue watching prompt.');
+    console.log('Since the kiosk user has been inactive on the stories screen, the next step is to show the continue watching prompt.');
     showContinueWatchingPrompt();
   } else {
-    console.log('Showing random story.');
+    console.log('Since the kiosk user is not on the stories screen, the next step is to show a random story.');
     showRandomStory();
   }
 }
@@ -185,7 +197,16 @@ function show(elementId, display = "block") {
   document.getElementById(elementId).style.display = display;
 }
 
+/**
+ * Shows the continue watching prompt and sets up a timeout function
+ * to automically close the continue watching prompt after the max amount
+ * of minutes to display has elapsed.
+ * 
+ * @see autoCloseContinueWatchingPrompt
+ * @link https://trello.com/c/jOnt9Hdm/35-8-17-21-create-a-continue-watching-prompt
+ */
 function showContinueWatchingPrompt() {
+  console.log('Showing the continue watching prompt...');
   show("js-continue-watching-prompt", "flex");
   continueWatchingPromptTimeout = setTimeout(
     autoCloseContinueWatchingPrompt,
@@ -193,14 +214,20 @@ function showContinueWatchingPrompt() {
   );
 }
 
-// Show random story
+/**
+ * Shows a random story.
+ * This will redirect the kiosk user to the story page.
+ * 
+ * @see getRandomStoryLink
+ */
 function showRandomStory() {
-  console.log('showing a random story...')
+  console.log('Showing a random story...')
   window.location.pathname = getRandomStoryLink();
 }
 
 // The welcome screen is the home screen, so we return to the index
 function showWelcomeScreen() {
+  console.log('Showing the welcome screen...');
   window.location.pathname = "/";
 }
 
