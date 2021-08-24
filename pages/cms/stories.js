@@ -40,16 +40,20 @@ document.addEventListener('click', function (event) {
 
 });
 
-// Know that we know the current category of the video playing, we can find
-// the video navigation menu button for that category
-let currentCategoryButton = document.querySelector("[class='story-categories-data'][data-story-category-slug='" + currentCategorySlug + "']").closest('.w-dyn-item').querySelector('.js-video-navigation-menu-button');
+// We have to wait until the DOM is loaded, though, before we can search for the current category button
+document.addEventListener('DOMContentLoaded', function (event) {
+  console.log('DOM ready ... determining the current category of the story that is playing...');
+  // Know that we know the current category of the video playing, we can find
+  // the video navigation menu button for that category
+  let currentCategoryButton = document.querySelector("[class='story-categories-data'][data-story-category-slug='" + currentCategorySlug + "']").closest('.w-dyn-item').querySelector('.js-video-navigation-menu-button');
 
-console.log('Current category button is: ', currentCategoryButton);
+  console.log('Current category button is: ', currentCategoryButton);
 
-// Trigger a click event on the video navigation menu button that represents the current category of the video that is being played
-console.log('Calling click method on the current category button listed above.');
+  // Trigger a click event on the video navigation menu button that represents the current category of the video that is being played
+  console.log('Calling click method on the current category button listed above.');
 
-currentCategoryButton.click();
+  currentCategoryButton.click();
 
-// Show a random story if the user doesn't do anything by the time the story is over
-setTimeout(showRandomStory, secondsToWaitUntilNextStory * 1000);
+  // Show a random story if the user doesn't do anything by the time the story is over
+  setTimeout(showRandomStory, secondsToWaitUntilNextStory * 1000);
+});
