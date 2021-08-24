@@ -1,24 +1,9 @@
 console.log('Setting kiosk screen to: ' + kioskScreen);
 console.log('Current category slug is: ', currentCategorySlug);
 console.log('The next video will play in ' + secondsToWaitUntilNextStory + ' seconds');
-console.log('The next video will be: ' + nextStoryPathName);
 
-// Know that we know the current category of the video playing, we can find
-// the video navigation menu button for that category
-let currentCategoryButton = document.querySelector("[class='story-categories-data'][data-story-category-slug='" + currentCategorySlug + "']").closest('.w-dyn-item').querySelector('.js-video-navigation-menu-button');
-
-console.log('Current category button is: ', currentCategoryButton);
-
-// Trigger a click event on the video navigation menu button that represents the current category of the video that is being played
-currentCategoryButton.click();
-
-// Show another story if the user doesn't do anything
-// If we want to play sequentially....
-// we would need to do a setTimeout, but call a function to play
-// the next story, e.g. nextStoryPathName
-
-// If we want to play sequentially....
-setTimeout(showRandomStory, secondsToWaitUntilNextStory * 1000);
+// This is no longer relevant since the videos will be played at random.
+//console.log('The next video will be: ' + nextStoryPathName);
 
 console.log('Setting up click event listener for the video navigation menu buttons...');
 
@@ -54,3 +39,17 @@ document.addEventListener('click', function (event) {
   document.querySelector('.' + clickedCategorySlug + '-video-collection').closest('.video-collection-group').classList.remove('hidden');
 
 });
+
+// Know that we know the current category of the video playing, we can find
+// the video navigation menu button for that category
+let currentCategoryButton = document.querySelector("[class='story-categories-data'][data-story-category-slug='" + currentCategorySlug + "']").closest('.w-dyn-item').querySelector('.js-video-navigation-menu-button');
+
+console.log('Current category button is: ', currentCategoryButton);
+
+// Trigger a click event on the video navigation menu button that represents the current category of the video that is being played
+console.log('Calling click method on the current category button listed above.');
+
+currentCategoryButton.click();
+
+// Show a random story if the user doesn't do anything by the time the story is over
+setTimeout(showRandomStory, secondsToWaitUntilNextStory * 1000);
