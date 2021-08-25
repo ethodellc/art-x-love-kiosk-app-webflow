@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
      * The path of the "kioskboard-keys-${langugage}.json" file must be set to the "keysJsonUrl" option. (XMLHttpRequest to getting the keys from JSON file.)
      * e.g. '/Content/Plugins/KioskBoard/dist/kioskboard-keys-english.json'
      */
-    keysJsonUrl: NULL,
+    keysJsonUrl: null,
 
     /*
      * Optional: (Special Characters Object)
