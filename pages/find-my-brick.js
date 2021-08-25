@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     language: 'en', // Language Code (ISO 639-1) for custom keys (for language support) => e.g "en" || "tr" || "es" || "de" || "fr" etc.
     theme: 'light', // The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"
     capsLockActive: true, // Uppercase or lowercase to start. Uppercase when "true"
-    allowRealKeyboard: false, // Allow or prevent real/physical keyboard usage. Prevented when "false"
+    allowRealKeyboard: true, // Allow or prevent real/physical keyboard usage. Prevented when "false"
     cssAnimations: true, // CSS animations for opening or closing the keyboard
     cssAnimationsDuration: 360, // CSS animations duration as millisecond
     cssAnimationsStyle: 'slide', // CSS animations style for opening or closing the keyboard => "slide" || "fade"
