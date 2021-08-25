@@ -77,9 +77,7 @@ function getMinutesOfInactivity() {
  * E.g. 1.5 would be 1 and a half minutes and 0.75 would be 45 minutes
  */
 function getMinutesOfInactivitySince(startTime) {
-  let millisecondsOfInactivity = Math.floor(
-    new Date().getTime() - startTime.getTime()
-  );
+  let millisecondsOfInactivity = new Date().getTime() - startTime.getTime();
   return millisecondsOfInactivity / 60000; // 1,000 ms in one second and 60 seconds in one minute
 }
 
@@ -249,7 +247,7 @@ function startTimer() {
 
     // Have we gone past the maximum number of allowed minutes of inactivy?
     if (minutesElapsed >= getMaxMinutesOfInactivity()) {
-      console.log('User has been inactive for too long.  Stopping inactivity timer loop');
+      console.log('User has been inactive for too long:  ' + minutesElapsed + ' minutes of inactivity. Stopping inactivity timer loop'.);
       clearInterval(userInactivityTimer);
       resetStartTime()
       dispatchUserInactiveForTooLongEvent();
