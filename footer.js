@@ -88,8 +88,8 @@ function getRandomStoryLink() {
   let stories = getStories();
 
   if (!stories || !stories.length || stories.length < 1) {
-    alert('ERROR: Could not load stories.');
-    return;
+    alert('ERROR: Could not load stories.  Redirecting to welcome page instead.');
+    showWelcomeScreen();
   } else {
     console.log("Total stories: ", stories.length);
   }
@@ -224,13 +224,13 @@ function showContinueWatchingPrompt() {
  */
 function showRandomStory() {
   console.log('Showing a random story...')
-  window.location.pathname = getRandomStoryLink();
+  window.location.href = getRandomStoryLink();
 }
 
 // The welcome screen is the home screen, so we return to the index
 function showWelcomeScreen() {
   console.log('Showing the welcome screen...');
-  window.location.pathname = "/";
+  window.location.href = "/";
 }
 
 // Starts the inactivity timer if it has not been started already
