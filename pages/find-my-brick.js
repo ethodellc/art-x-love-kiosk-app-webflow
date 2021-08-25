@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     keysFontSize: '22px', // Font size of the
     keyskeysFontWeight: 'normal', // Font weight of the keys
     keysIconSize: '25px', // Size of the icon keys// v1.1.0 and the next versions
-    allowMobileKeyboard: false, // Allow or prevent mobile keyboard usage. Prevented when "false"
+    allowMobileKeyboard: true, // Allow or prevent mobile keyboard usage. Prevented when "false"
 
     //v1 .3 .0 and the next versions
     autoScroll: true, // Scrolls the document to the top of the input/textarea element. The default value is "true" as before.Prevented when "false"
