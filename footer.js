@@ -247,7 +247,7 @@ function startTimer() {
 
     // Have we gone past the maximum number of allowed minutes of inactivy?
     if (minutesElapsed >= getMaxMinutesOfInactivity()) {
-      console.log('User has been inactive for too long:  ' + minutesElapsed + ' minutes of inactivity. Stopping inactivity timer loop'.);
+      console.log('User has been inactive for too long:  ' + minutesElapsed + ' minutes of inactivity. Stopping inactivity timer loop.');
       clearInterval(userInactivityTimer);
       resetStartTime()
       dispatchUserInactiveForTooLongEvent();
