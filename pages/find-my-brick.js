@@ -21,6 +21,7 @@ function onVirtualKeyboardClosed() {
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('DOM ready:  Adding event listener to search field...');
   let searchInputElement = document.getElementById('Search');
 
   searchInputElement.addEventListener('keyup', function (e) {
@@ -111,18 +112,18 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('setting up observer for watching when virtual keyboard is removed');
+  console.log('setting up observer for watching when virtual keyboard is removed...');
   const observer = new MutationObserver(function (mutations_list) {
     mutations_list.forEach(function (mutation) {
       mutation.removedNodes.forEach(function (removed_node) {
         console.log('Node removed: ', removed_node);
         if (removed_node.id == 'KioskBoard-VirtualKeyboard') {
-          console.log('Virtual Keyboard has been removed');
-          observer.disconnect();
+          console.log('Virtual keyboard has been removed.');
+          onVirtualKeyboardClosed();
         }
       });
     });
   });
 
-  observer.observe(document.body, { subtree: false, childList: true });
+  observer.observe(document.body, { subtree: true, childList: true });
 });
