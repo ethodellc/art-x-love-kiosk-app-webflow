@@ -14,9 +14,9 @@ function onSearchTermEntered(searchTerm) {
 }
 
 function onVirtualKeyboardClosed() {
+  let searchInputElement = document.getElementById('Search');
   console.log('Keyboard closed.  Search input element: ', searchInputElement);
   console.log('Search input value: ', searchInputElement.value);
-  let searchInputElement = document.getElementById('Search');
   onSearchTermEntered(searchInputElement.value);
 }
 
