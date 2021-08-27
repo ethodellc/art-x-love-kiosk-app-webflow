@@ -1,3 +1,33 @@
+function onSearchTermEntered(searchTerm) {
+  console.log('Search term entered: ' + searchTerm);
+  let listItemElements = document.querySelectorAll('.brick-container .brick-owner');
+  console.log(listItemElements);
+
+  listItemElements.forEach(function (element) {
+    if (element.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+      console.log('Brick match found: ' + element.innerText);
+      element.closest('.brick-list-item').style.display = "block";
+    } else {
+      element.closest('.brick-list-item').style.display = "none";
+    }
+  });
+}
+
+function onVirtualKeyboardClosed() {
+  console.log('Keyboard closed.  Search input element: ', searchInputElement);
+  console.log('Search input value: ', searchInputElement.value);
+  let searchInputElement = document.getElementById('Search');
+  onSearchTermEntered(searchInputElement.value);
+}
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  let searchInputElement = document.getElementById('search');
+
+  searchInputElement.addEventListener('keyup', function (e) {
+    onSearchTermEntered(e.target.value)
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log('DOM ready on find my brick page.');
   console.log('initializing virtual keyboard');
@@ -78,4 +108,21 @@ document.addEventListener('DOMContentLoaded', function (event) {
   });
 
   KioskBoard.Run('.js-kioskboard-input');
+});
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  console.log('setting up observer for watching when virtual keyboard is removed');
+  const observer = new MutationObserver(function (mutations_list) {
+    mutations_list.forEach(function (mutation) {
+      mutation.removedNodes.forEach(function (removed_node) {
+        console.log('Node removed: ', removed_node);
+        if (removed_node.id == 'KioskBoard-VirtualKeyboard') {
+          console.log('Virtual Keyboard has been removed');
+          observer.disconnect();
+        }
+      });
+    });
+  });
+
+  observer.observe(document.body, { subtree: false, childList: true });
 });
