@@ -86,15 +86,14 @@ function getRandomStoryLink() {
   let stories = getStories();
 
   if (!stories || !stories.length || stories.length < 1) {
-    alert('ERROR: Could not load stories.  Redirecting to welcome page instead.');
+    console.warn('Could not load stories.  Redirecting to welcome page instead.');
     showWelcomeScreen();
   } else {
     console.log("Total stories: ", stories.length);
+    let randomStory = stories[Math.floor(Math.random() * stories.length)];
+    console.log("Random story: ", randomStory);
+    return randomStory.link;
   }
-
-  let randomStory = stories[Math.floor(Math.random() * stories.length)];
-  console.log("Random story: ", randomStory);
-  return randomStory.link;
 }
 
 function getStartTime() {
