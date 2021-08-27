@@ -21,10 +21,10 @@ function onVirtualKeyboardClosed() {
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-  let searchInputElement = document.getElementById('search');
+  let searchInputElement = document.getElementById('Search');
 
   searchInputElement.addEventListener('keyup', function (e) {
-    onSearchTermEntered(e.target.value)
+    onSearchTermEntered(e.target.value);
   });
 });
 

@@ -162,7 +162,7 @@ function onKioskUserInactiveForTooLong() {
 
 // resets the inactity timer by stetting the start time to now
 function resetStartTime() {
-  console.log('Reseting inactivity timer to start tracking now.');
+  //console.log('Reseting inactivity timer to start tracking now.');
   let startTime = new Date();
   sessionStorage.setItem("startTime", startTime);
   return startTime;
