@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
   document.querySelectorAll('.js-brick-owner-container').forEach(function (brickOwnerContainer) {
     brickOwnerContainer.addEventListener('click', function (clickEvent) {
       console.log('Brick owner container clicked.');
-      console.log('Brick onwer container element: ', brickOwnerContainer);
-      console.log('Click event target', clickEvent.target);
-      console.log('Click event target parent node', clickEvent.target.parentNode);
-      let brickDescriptionContainer = clickEvent.target.parentNode.querySelector('.js-brick-description-container');
+      console.log('Brick owner container element: ', brickOwnerContainer);
+      console.log('Brick container: ', brickOwnerContainer.closest('.brick-container'));
+      console.log('Brick descriptoin container: ', brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container'));
+      let brickDescriptionContainer = brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container');
 
       if (brickDescriptionContainer) {
         if (brickDescriptionContainer.style.display == "none") {
