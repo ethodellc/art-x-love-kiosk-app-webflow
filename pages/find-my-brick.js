@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
       if (brickDescriptionContainer) {
         console.log('Checking brick style display... is this next value equal to none?');
         console.log(brickDescriptionContainer.style.display);
-        if (brickDescriptionContainer.style.display == "none") {
+        if (brickDescriptionContainer.style.display != "block") {
           console.log('attempting to display brick description', brickDescriptionContainer);
           console.log('style.display before: ', brickDescriptionContainer.style.display);
           brickDescriptionContainer.style.display = "block";
