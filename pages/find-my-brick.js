@@ -48,12 +48,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
       if (brickDescriptionContainer) {
         if (brickDescriptionContainer.style.display == "none") {
-          console.log('attempting to display brick description');
+          console.log('attempting to display brick description', brickDescriptionContainer);
           console.log('style.display before: ', brickDescriptionContainer.style.display);
           brickDescriptionContainer.style.display = "block";
-        } else {
-          brickDescriptionContainer.style.display = "none";
           console.log('style.display after: ', brickDescriptionContainer.style.display);
+        } else {
+          console.log('attempting to hide brick description', brickDescriptionContainer);
+          brickDescriptionContainer.style.display = "none";
         }
       } else {
         console.warn('Could not find a brick description container for brick owner container:', brickOwnerContainer);
