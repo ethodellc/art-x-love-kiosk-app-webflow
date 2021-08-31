@@ -10,12 +10,12 @@ function onSearchTermEntered(searchTerm) {
       element.closest('.brick-list-item').style.display = "block";
 
       // Also display the brick description
-      element.style.display = "block";
+      element.closest('.brick-description').style.display = "block";
     } else {
       element.closest('.brick-list-item').style.display = "none";
 
       // Also hide the brick description
-      element.style.display = "none";
+      element.closest('.brick-description').style.display = "none";
     }
   });
 
