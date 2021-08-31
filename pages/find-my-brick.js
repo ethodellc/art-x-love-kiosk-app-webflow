@@ -42,10 +42,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
     brickOwnerContainer.addEventListener('click', function (clickEvent) {
       let brickDescriptionContainer = clickEvent.target.closest('.js-brick-description-container');
 
-      if (brickDescriptionContainer.style.display == "none") {
-        brickDescriptionContainer.style.display = "block";
+      if (brickDescriptionContainer) {
+        if (brickDescriptionContainer.style.display == "none") {
+          brickDescriptionContainer.style.display = "block";
+        } else {
+          brickDescriptionContainer.style.display = "none";
+        }
       } else {
-        brickDescriptionContainer.style.display = "none";
+        console.warn('Could not find a brick description container for brick owner container:', brickOwnerContainer);
       }
     });
   })
