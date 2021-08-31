@@ -1,16 +1,23 @@
 function onSearchTermEntered(searchTerm) {
   console.log('Search term entered: ' + searchTerm);
+  let totalMatches = 0;
   let listItemElements = document.querySelectorAll('.brick-container .brick-owner');
-  console.log(listItemElements);
 
   listItemElements.forEach(function (element) {
     if (element.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
       console.log('Brick match found: ' + element.innerText);
+      totalMatches++;
       element.closest('.brick-list-item').style.display = "block";
     } else {
       element.closest('.brick-list-item').style.display = "none";
     }
   });
+
+  if (totalMatches > 0) {
+    document.getElementById('search-not-found').style.display = "none";
+  } else {
+    document.getElementById('search-not-found').style.display = "block";
+  }
 }
 
 function onVirtualKeyboardClosed() {
