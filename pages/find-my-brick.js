@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
       let brickDescriptionContainer = brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container');
 
       if (brickDescriptionContainer) {
-        console.log('Checking brick style display... is this value equal to none?', brickDescriptionContainer.style.display);
+        console.log('Checking brick style display... is this next value equal to none?');
+        console.log(brickDescriptionContainer.style.display);
         if (brickDescriptionContainer.style.display == "none") {
           console.log('attempting to display brick description', brickDescriptionContainer);
           console.log('style.display before: ', brickDescriptionContainer.style.display);
