@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
       console.log('Brick owner container clicked.');
       console.log('Brick owner container element: ', brickOwnerContainer);
       console.log('Brick container: ', brickOwnerContainer.closest('.brick-container'));
-      console.log('Brick descriptoin container: ', brickOwnerContainer.closest('.brick-container').querySelector('.js-js-brick-description-container-container'));
-      let brickDescriptionContainer = brickOwnerContainer.closest('.brick-container').querySelector('.js-js-brick-description-container-container');
+      console.log('Brick descriptoin container: ', brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container'));
+      let brickDescriptionContainer = brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container');
 
       if (brickDescriptionContainer) {
         console.log('Checking brick style display... is this next value not equal to block?');
