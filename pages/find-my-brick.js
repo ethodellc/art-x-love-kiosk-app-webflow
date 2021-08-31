@@ -1,3 +1,9 @@
+function closeVirtualKeyboard() {
+  // SEE: https://github.com/furcan/KioskBoard/issues/12
+  window.document.body.click();
+  onVirtualKeyboardClosed
+}
+
 function onSearchTermEntered(searchTerm) {
   console.log('Search term entered: ' + searchTerm);
   let totalMatches = 0;
@@ -31,11 +37,30 @@ function onVirtualKeyboardClosed() {
   console.log('Keyboard closed.  Search input element: ', searchInputElement);
   console.log('Search input value: ', searchInputElement.value);
   onSearchTermEntered(searchInputElement.value);
+
+  // Hide the close keyboard button
+  let closeKeyboardButton = document.getElementById('js-close-keyboard');
+  closeKeyboardButton.style.display = 'none';
+}
+
+function onVirtualKeyboardOpened() {
+  // When the virtual keyboard is displayed, display the button to close it
+  let closeKeyboardButton = document.getElementById('js-close-keyboard');
+  closeKeyboardButton.style.display = 'block';
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-  console.log('DOM ready:  Adding event listener to search field...');
+  console.log('DOM ready:  Adding event listeners to search field and close keyboard button...');
+
+  // When the close keyboard button is clicked, close the virtual keyboard
+  let closeKeyboardButton = document.getElementById('js-close-keyboard');
+  closeKeyboardButton.addEventListener('click', closeVirtualKeyboard);
+
   let searchInputElement = document.getElementById('Search');
+
+  searchInputElement.addEventListener('focus', function (e) {
+    onVirtualKeyboardOpened();
+  });
 
   searchInputElement.addEventListener('keyup', function (e) {
     onSearchTermEntered(e.target.value);
