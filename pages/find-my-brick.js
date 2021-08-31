@@ -1,7 +1,7 @@
 function onSearchTermEntered(searchTerm) {
   console.log('Search term entered: ' + searchTerm);
   let totalMatches = 0;
-  let listItemElements = document.querySelectorAll('.brick-container .brick-description');
+  let listItemElements = document.querySelectorAll('.brick-container .js-brick-description-container');
 
   listItemElements.forEach(function (element) {
     if (element.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -10,12 +10,12 @@ function onSearchTermEntered(searchTerm) {
       element.closest('.brick-list-item').style.display = "block";
 
       // Also display the brick description
-      element.closest('.brick-description').style.display = "block";
+      element.closest('.js-brick-description-container').style.display = "block";
     } else {
       element.closest('.brick-list-item').style.display = "none";
 
       // Also hide the brick description
-      element.closest('.brick-description').style.display = "none";
+      element.closest('.js-brick-description-container').style.display = "none";
     }
   });
 
@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
       console.log('Brick owner container clicked.');
       console.log('Brick owner container element: ', brickOwnerContainer);
       console.log('Brick container: ', brickOwnerContainer.closest('.brick-container'));
-      console.log('Brick descriptoin container: ', brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container'));
-      let brickDescriptionContainer = brickOwnerContainer.closest('.brick-container').querySelector('.js-brick-description-container');
+      console.log('Brick descriptoin container: ', brickOwnerContainer.closest('.brick-container').querySelector('.js-js-brick-description-container-container'));
+      let brickDescriptionContainer = brickOwnerContainer.closest('.brick-container').querySelector('.js-js-brick-description-container-container');
 
       if (brickDescriptionContainer) {
         console.log('Checking brick style display... is this next value not equal to block?');
