@@ -34,6 +34,21 @@ document.addEventListener('DOMContentLoaded', function (e) {
   searchInputElement.addEventListener('keyup', function (e) {
     onSearchTermEntered(e.target.value);
   });
+
+  // Whenever a brick owner is clicked, display the description for the brick
+  // When it is clicked again, hide it.
+  // SEE: https://trello.com/c/v9ddieAF/56-8-30-21-after-search-results-are-shown-on-find-my-brick-page-display-the-brick-content-if-someone-clicks-on-their-name
+  document.querySelectorAll('.js-brick-owner-container').forEach(function (brickOwnerContainer) {
+    brickOwnerContainer.addEventListener('click', function (clickEvent) {
+      let brickDescriptionContainer = clickEvent.target.closest('.js-brick-description-container');
+
+      if (brickDescriptionContainer.style.display == "none") {
+        brickDescriptionContainer.style.display = "block";
+      } else {
+        brickDescriptionContainer.style.display = "none";
+      }
+    });
+  })
 });
 
 document.addEventListener('DOMContentLoaded', function (event) {
