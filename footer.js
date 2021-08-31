@@ -31,7 +31,7 @@ function detectActiveUser() {
   console.log('Preparing to detect events that would indicate the kiosk user is active...');
 
   // These are events that, when dispatched, would indicate an active user...
-  let activeUserEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+  let activeUserEvents = ['mousedown', 'mousemove', 'keyup', 'keypress', 'scroll', 'touchstart'];
 
   activeUserEvents.forEach(function (eventName) {
 
