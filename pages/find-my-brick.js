@@ -40,6 +40,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
   // SEE: https://trello.com/c/v9ddieAF/56-8-30-21-after-search-results-are-shown-on-find-my-brick-page-display-the-brick-content-if-someone-clicks-on-their-name
   document.querySelectorAll('.js-brick-owner-container').forEach(function (brickOwnerContainer) {
     brickOwnerContainer.addEventListener('click', function (clickEvent) {
+      console.log('Brick owner container clicked.');
+      console.log('Brick onwer container element: ', brickOwnerContainer);
+      console.log('Click event target', clickEvent.target);
+      console.log('Click event target parent node', clickEvent.target.parentNode);
       let brickDescriptionContainer = clickEvent.target.parentNode.querySelector('.js-brick-description-container');
 
       if (brickDescriptionContainer) {
