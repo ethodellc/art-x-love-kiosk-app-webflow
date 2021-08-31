@@ -1,15 +1,21 @@
 function onSearchTermEntered(searchTerm) {
   console.log('Search term entered: ' + searchTerm);
   let totalMatches = 0;
-  let listItemElements = document.querySelectorAll('.brick-container .brick-owner');
+  let listItemElements = document.querySelectorAll('.brick-container .brick-description');
 
   listItemElements.forEach(function (element) {
     if (element.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
       console.log('Brick match found: ' + element.innerText);
       totalMatches++;
       element.closest('.brick-list-item').style.display = "block";
+
+      // Also display the brick description
+      element.style.display = "block";
     } else {
       element.closest('.brick-list-item').style.display = "none";
+
+      // Also hide the brick description
+      element.style.display = "none";
     }
   });
 
