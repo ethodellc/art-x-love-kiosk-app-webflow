@@ -2,7 +2,9 @@ function addSearchButtonToVirtualKeyboard() {
 
   // Only add the search button if the "P" button is on the keyboard
   // and the SEARCH button has not already been added.
-  if (document.querySelector('.kioskboard-key-p') && !document.querySelector('kioskboard-key-close')) {
+  let pButton = document.querySelector('.kioskboard-key-p');
+  let searchButton = document.querySelector('.kioskboard-key-close');
+  if (pButton && !searchButton) {
     let searchButtonHtml = `<span style="font-family:sans-serif,sans-serif;font-weight:normal;font-size:22px; width:140px; max-width:140px;"
     class="kioskboard-key kioskboard-key-close" data-index="9" data-value=""
     onclick="window.document.body.click();">SEARCH</span>`;
