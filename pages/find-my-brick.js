@@ -4,6 +4,9 @@ function addSearchButtonToVirtualKeyboard() {
   // and the SEARCH button has not already been added.
   let pButton = document.querySelector('.kioskboard-key-p');
   let searchButton = document.querySelector('.kioskboard-key-close');
+  console.log('p button is ', pButton);
+  console.log('search button is ', searchButton);
+
   if (pButton && !searchButton) {
     let searchButtonHtml = `<span style="font-family:sans-serif,sans-serif;font-weight:normal;font-size:22px; width:140px; max-width:140px;"
     class="kioskboard-key kioskboard-key-close" data-index="9" data-value=""
@@ -202,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   console.log('virtual keyboard is running ... triggering a focus event on the search input element');
   let searchInputElement = document.getElementById('Search');
   searchInputElement.focus();
+  searchInputElement.click();
 });
 
 document.addEventListener('DOMContentLoaded', function (event) {
