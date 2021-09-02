@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
   console.log('DOM ready:  Adding event listener to search field...');
   let searchInputElement = document.getElementById('Search');
 
-  searchInputElement.addEventListener('focus', function (e) {
+  searchInputElement.addEventListener('click', function (e) {
     onVirtualKeyboardOpened();
   });
 
