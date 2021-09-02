@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     onSearchTermEntered(e.target.value);
   });
 
+
   // Whenever a brick owner is clicked, display the description for the brick
   // When it is clicked again, hide it.
   // SEE: https://trello.com/c/v9ddieAF/56-8-30-21-after-search-results-are-shown-on-find-my-brick-page-display-the-brick-content-if-someone-clicks-on-their-name
@@ -197,6 +198,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
   });
 
   KioskBoard.Run('.js-kioskboard-input');
+
+  console.log('virtual keyboard is running ... triggering a focus event on the search input element');
+  let searchInputElement = document.getElementById('Search');
+  searchInputElement.focus();
 });
 
 document.addEventListener('DOMContentLoaded', function (event) {
