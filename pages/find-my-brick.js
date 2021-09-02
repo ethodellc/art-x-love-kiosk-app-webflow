@@ -1,3 +1,11 @@
+function addSearchButtonToVirtualKeyboard() {
+  let searchButtonHtml = `<span style="font-family:sans-serif,sans-serif;font-weight:normal;font-size:22px; width:140px; max-width:140px;"
+    class="kioskboard-key kioskboard-key-close" data-index="9" data-value=""
+    onclick="window.document.body.click();">SEARCH</span>`;
+  let pButton = document.querySelector('.kioskboard-key-p');
+  pButton.insertAdjacentHTML("beforeend", searchButtonHtml);
+}
+
 function onSearchTermEntered(searchTerm) {
   console.log('Search term entered: ' + searchTerm);
   let totalMatches = 0;
@@ -37,6 +45,7 @@ function onVirtualKeyboardOpened() {
   // When the virtual keyboard is displayed, display the button to close it
   let closeKeyboardButton = document.getElementById('js-close-keyboard');
   closeKeyboardButton.style.display = 'block';
+  addSearchButtonToVirtualKeyboard();
 }
 
 // Once the DOM is ready...
@@ -165,18 +174,32 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('setting up observer for watching when virtual keyboard is removed...');
-  const observer = new MutationObserver(function (mutations_list) {
-    mutations_list.forEach(function (mutation) {
-      mutation.removedNodes.forEach(function (removed_node) {
-        console.log('Node removed: ', removed_node);
-        if (removed_node.id == 'KioskBoard-VirtualKeyboard') {
-          console.log('Virtual keyboard has been removed.');
-          onVirtualKeyboardClosed();
+  console.log('setting up observer for watching when virtual keyboard is opened or closed...');
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      // Loop through any nodes that were added and look for the virtual keyboard
+      mutation.addedNodes.forEach(function (addedNode) {
+        console.log('Node added: ', addedNode);
+        if (addedNode.id == 'KioskBoard-VirtualKeyboard') {
+          console.log('Virtual keyboard has been added.');
+          onVirtualKeyboardOpened();
         }
+      });
+
+      // Loop through any nodes that were removed and look for the virtual keyboard
+      mutations.forEach(function (mutation) {
+        mutation.removedNodes.forEach(function (removedNode) {
+          console.log('Node removed: ', removedNode);
+          if (removedNode.id == 'KioskBoard-VirtualKeyboard') {
+            console.log('Virtual keyboard has been removed.');
+            onVirtualKeyboardClosed();
+          }
+        });
       });
     });
   });
 
+  // childList will listen for when HTML is added or removed
+  // subTree means we will not just examine document.body, but also all of its subnodes
   observer.observe(document.body, { subtree: true, childList: true });
 });
