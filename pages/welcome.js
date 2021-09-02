@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 // When the user clicks anywhere on the Welcome screen,
 // show a random story
 document.addEventListener('click', function (event) {
-  console.log('click event detected');
+  console.log('click event detected on welcome screen. event target: ', event.target);
 
   // Don't follow the link
   event.preventDefault();
