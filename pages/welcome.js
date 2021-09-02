@@ -52,10 +52,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
 // except for a nav menu link,
 // show a random story
 document.addEventListener('click', function (event) {
-  let isInNavMenu = event.target.closest('.nav-menu');
-  console.log('click event detected on welcome screen. event target closest nav menu: ', isInNavMenu);
 
-  // Don't follow the link
+  console.log('click event detected on welcome screen. event target: ', event.target);
+  console.log('event target parent: ', event.target.parentNode);
+  console.log('event target grandparent: ', event.target.parentNode.parentNode);
+
+  // Unless the click was in the nav menu, do not follow the link
+  let isInNavMenu = event.target.closest('.nav-menu');
+
   if (isInNavMenu) {
     console.log('Link was in nav menu, so handling click as expected.');
     return;
