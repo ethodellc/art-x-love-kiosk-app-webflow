@@ -63,6 +63,11 @@ function onVirtualKeyboardOpened() {
 // Once the DOM is ready...
 document.addEventListener('DOMContentLoaded', function (e) {
   console.log('DOM ready:  Adding event listener to search field...');
+
+  window.document.body.addEventListener('click', function (e) {
+    console.log('Click detected on the page.  Target: ', e.target);
+  });
+
   let searchInputElement = document.getElementById('Search');
 
   searchInputElement.addEventListener('click', function (e) {
@@ -105,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
   })
 });
 
+// Set up Keyboard once DOM is ready
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log('DOM ready on find my brick page.');
   console.log('initializing virtual keyboard');
