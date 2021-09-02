@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
   let searchInputElement = document.getElementById('Search');
 
   // When the user clicks on the field, open the virtual keyboard
-  searchInputElement.addEventListener('focus', function (e) {
+  /*searchInputElement.addEventListener('focus', function (e) {
     console.log('search input field has received focus');
     onVirtualKeyboardOpened();
-  });
+  });*/
 
   searchInputElement.addEventListener('keyup', function (e) {
     onSearchTermEntered(e.target.value);
