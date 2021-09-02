@@ -49,13 +49,18 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 // When the user clicks anywhere on the Welcome screen,
+// except for a nav menu link,
 // show a random story
 document.addEventListener('click', function (event) {
-  console.log('click event detected on welcome screen. event target: ', event.target);
+  let isInNavMenu = event.target.closest('.nav-menu');
+  console.log('click event detected on welcome screen. event target closest nav menu: ', isInNavMenu);
 
   // Don't follow the link
-  event.preventDefault();
-
-  onWelcomeScreenClicked();
-
+  if (isInNavMenu) {
+    console.log('Link was in nav menu, so handling click as expected.');
+    return;
+  } else {
+    event.preventDefault();
+    onWelcomeScreenClicked();
+  }
 }, false);
