@@ -33,9 +33,20 @@ function onVirtualKeyboardClosed() {
   onSearchTermEntered(searchInputElement.value);
 }
 
+function onVirtualKeyboardOpened() {
+  // When the virtual keyboard is displayed, display the button to close it
+  let closeKeyboardButton = document.getElementById('js-close-keyboard');
+  closeKeyboardButton.style.display = 'block';
+}
+
+// Once the DOM is ready...
 document.addEventListener('DOMContentLoaded', function (e) {
   console.log('DOM ready:  Adding event listener to search field...');
   let searchInputElement = document.getElementById('Search');
+
+  searchInputElement.addEventListener('focus', function (e) {
+    onVirtualKeyboardOpened();
+  });
 
   searchInputElement.addEventListener('keyup', function (e) {
     onSearchTermEntered(e.target.value);
