@@ -1,10 +1,3 @@
-function closeVirtualKeyboard() {
-  console.log('programmatting closing virtual keyboard');
-  // SEE: https://github.com/furcan/KioskBoard/issues/12
-  window.document.body.click();
-  onVirtualKeyboardClosed();
-}
-
 function onSearchTermEntered(searchTerm) {
   console.log('Search term entered: ' + searchTerm);
   let totalMatches = 0;
@@ -12,7 +5,7 @@ function onSearchTermEntered(searchTerm) {
 
   listItemElements.forEach(function (element) {
     if (element.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
-      //console.log('Brick match found: ' + element.innerText);
+      console.log('Brick match found: ' + element.innerText);
       totalMatches++;
       element.closest('.brick-list-item').style.display = "block";
 
@@ -34,41 +27,15 @@ function onSearchTermEntered(searchTerm) {
 }
 
 function onVirtualKeyboardClosed() {
-  console.log('onVirtualKeyboardClosed triggered');
-
   let searchInputElement = document.getElementById('Search');
   console.log('Keyboard closed.  Search input element: ', searchInputElement);
   console.log('Search input value: ', searchInputElement.value);
   onSearchTermEntered(searchInputElement.value);
-
-  // Hide the close keyboard button
-  let closeKeyboardButton = document.getElementById('js-close-keyboard');
-  closeKeyboardButton.style.display = 'none';
-}
-
-function onVirtualKeyboardOpened() {
-  console.log('onVirtualKeyboardOpened triggered');
-
-  // When the virtual keyboard is displayed, display the button to close it
-  let closeKeyboardButton = document.getElementById('js-close-keyboard');
-  closeKeyboardButton.style.display = 'block';
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-  console.log('DOM ready:  Adding event listeners to search field and close keyboard button...');
-
-  // When the close keyboard button is clicked, close the virtual keyboard
-  let closeKeyboardButton = document.getElementById('js-close-keyboard');
-  closeKeyboardButton.addEventListener('click', closeVirtualKeyboard);
-
-  // Add events to search input
+  console.log('DOM ready:  Adding event listener to search field...');
   let searchInputElement = document.getElementById('Search');
-
-  // When the user clicks on the field, open the virtual keyboard
-  /*searchInputElement.addEventListener('focus', function (e) {
-    console.log('search input field has received focus');
-    onVirtualKeyboardOpened();
-  });*/
 
   searchInputElement.addEventListener('keyup', function (e) {
     onSearchTermEntered(e.target.value);
@@ -187,35 +154,18 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('setting up observer for watching when virtual keyboard is opened or closed...');
-  const observer = new MutationObserver(function (mutations) {
-
-
-    mutations.forEach(function (mutation) {
-
-      // Loop through any nodes that were added and look for the virtual keyboard
-      mutation.addedNodes.forEach(function (addedNode) {
-        console.log('Node added: ', addedNode);
-        if (addedNode.id == 'KioskBoard-VirtualKeyboard') {
-          console.log('Virtual keyboard has been added.');
-          onVirtualKeyboardOpened();
+  console.log('setting up observer for watching when virtual keyboard is removed...');
+  const observer = new MutationObserver(function (mutations_list) {
+    mutations_list.forEach(function (mutation) {
+      mutation.removedNodes.forEach(function (removed_node) {
+        console.log('Node removed: ', removed_node);
+        if (removed_node.id == 'KioskBoard-VirtualKeyboard') {
+          console.log('Virtual keyboard has been removed.');
+          onVirtualKeyboardClosed();
         }
-      });
-
-      // Loop through any nodes that were removed and look for the virtual keyboard
-      mutations.forEach(function (mutation) {
-        mutation.removedNodes.forEach(function (removedNode) {
-          console.log('Node removed: ', removedNode);
-          if (removedNode.id == 'KioskBoard-VirtualKeyboard') {
-            console.log('Virtual keyboard has been removed.');
-            onVirtualKeyboardClosed();
-          }
-        });
       });
     });
   });
 
-  // childList will listen for when HTML is added or removed
-  // subTree means we will not just examine document.body, but also all of its subnodes
   observer.observe(document.body, { subtree: true, childList: true });
 });
