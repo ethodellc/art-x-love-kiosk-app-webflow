@@ -57,5 +57,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
   currentCategoryButton.click();
 
   // Show a random story if the user doesn't do anything by the time the story is over
-  setTimeout(showRandomStory, storyDurationInSeconds * 1000);
+  // Add a 5 second buffer to the story duration to make sure it does not get clipped
+  setTimeout(showRandomStory, (storyDurationInSeconds + 5) * 1000);
 });
