@@ -3,10 +3,15 @@ function addSearchButtonToVirtualKeyboard() {
     class="kioskboard-key kioskboard-key-close" data-index="9" data-value=""
     onclick="window.document.body.click();">SEARCH</span>`;
   let pButton = document.querySelector('.kioskboard-key-p');
-  pButton.insertAdjacentHTML("beforeend", searchButtonHtml);
+  pButton.insertAdjacentHTML("afterend", searchButtonHtml);
 }
 
 function onSearchTermEntered(searchTerm) {
+  if (!searchTerm || searchTerm == "" || searchTerm == " ") {
+    console.log('Search term triggered, but no search term entered, returning.  Search term value: ', searchTerm);
+    return;
+  }
+
   console.log('Search term entered: ' + searchTerm);
   let totalMatches = 0;
   let listItemElements = document.querySelectorAll('.brick-container .js-brick-description-container');
@@ -35,6 +40,7 @@ function onSearchTermEntered(searchTerm) {
 }
 
 function onVirtualKeyboardClosed() {
+  console.log('onVirtualKeyboardClosed triggered');
   let searchInputElement = document.getElementById('Search');
   console.log('Keyboard closed.  Search input element: ', searchInputElement);
   console.log('Search input value: ', searchInputElement.value);
@@ -42,6 +48,7 @@ function onVirtualKeyboardClosed() {
 }
 
 function onVirtualKeyboardOpened() {
+  console.log('onVirtualKeyboardOpened triggered');
   // When the virtual keyboard is displayed, display the button to close it
   let closeKeyboardButton = document.getElementById('js-close-keyboard');
   closeKeyboardButton.style.display = 'block';
@@ -54,10 +61,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
   let searchInputElement = document.getElementById('Search');
 
   searchInputElement.addEventListener('click', function (e) {
+    console.log('click event detected on search input');
     onVirtualKeyboardOpened();
   });
 
   searchInputElement.addEventListener('keyup', function (e) {
+    console.log('keyup event detected on search input');
     onSearchTermEntered(e.target.value);
   });
 
