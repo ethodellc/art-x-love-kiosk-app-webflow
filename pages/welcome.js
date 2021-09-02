@@ -57,10 +57,7 @@ document.addEventListener('click', function (event) {
   console.log('event target parent: ', event.target.parentNode);
   console.log('event target grandparent: ', event.target.parentNode.parentNode);
 
-  // Unless the click was in the nav menu, do not follow the link
-  let isInNavMenu = event.target.closest('.nav-menu');
-
-  if (isInNavMenu) {
+  if (event.target.id == 'footer-link-more-info' || event.target.id == 'footer-link-find-my-brick') {
     console.log('Link was in nav menu, so handling click as expected.');
     return;
   } else {
