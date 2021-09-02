@@ -3,10 +3,6 @@
 console.log('Setting kiosk screen to: ' + kioskScreen);
 console.log('Current category slug is: ', currentCategorySlug);
 console.log('The next video will play in ' + storyDurationInSeconds + ' seconds');
-
-// This is no longer relevant since the videos will be played at random.
-//console.log('The next video will be: ' + nextStoryPathName);
-
 console.log('Setting up click event listener for the video navigation menu buttons...');
 
 // Whenever a video navigation menu button is clicked...
