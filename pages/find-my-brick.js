@@ -8,7 +8,7 @@ function addSearchButtonToVirtualKeyboard() {
   console.log('search button is ', searchButton);
 
   if (pButton && !searchButton) {
-    let searchButtonHtml = `<span style="font-family:sans-serif,sans-serif;font-weight:normal;font-size:22px; width:140px; max-width:140px;"
+    let searchButtonHtml = `<span style="font-family:sans-serif,sans-serif;font-weight:normal;font-size:22px; width:140px; max-width:140px; background: #cf0000; color: white;"
     class="kioskboard-key kioskboard-key-close" data-index="9" data-value=""
     onclick="window.document.body.click();">SEARCH</span>`;
     let pButton = document.querySelector('.kioskboard-key-p');
