@@ -1,6 +1,8 @@
+// These variables are set in the Stories CMS Page in Webflow
+// SEE: https://webflow.com/design/akron-stories-kiosk-app?pageId=611121690865d6a499ab0d66&itemId=611a5e3636b7ca6d5e401e88
 console.log('Setting kiosk screen to: ' + kioskScreen);
 console.log('Current category slug is: ', currentCategorySlug);
-console.log('The next video will play in ' + secondsToWaitUntilNextStory + ' seconds');
+console.log('The next video will play in ' + storyDurationInSeconds + ' seconds');
 
 // This is no longer relevant since the videos will be played at random.
 //console.log('The next video will be: ' + nextStoryPathName);
@@ -55,5 +57,5 @@ document.addEventListener('DOMContentLoaded', function (event) {
   currentCategoryButton.click();
 
   // Show a random story if the user doesn't do anything by the time the story is over
-  setTimeout(showRandomStory, secondsToWaitUntilNextStory * 1000);
+  setTimeout(showRandomStory, storyDurationInSeconds * 1000);
 });
