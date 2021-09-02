@@ -12,7 +12,7 @@ function onSearchTermEntered(searchTerm) {
 
   listItemElements.forEach(function (element) {
     if (element.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
-      console.log('Brick match found: ' + element.innerText);
+      //console.log('Brick match found: ' + element.innerText);
       totalMatches++;
       element.closest('.brick-list-item').style.display = "block";
 
@@ -190,8 +190,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
   console.log('setting up observer for watching when virtual keyboard is opened or closed...');
   const observer = new MutationObserver(function (mutations) {
 
-    // Loop through any nodes that were added and look for the virtual keyboard
+
     mutations.forEach(function (mutation) {
+
+      // Loop through any nodes that were added and look for the virtual keyboard
       mutation.addedNodes.forEach(function (addedNode) {
         console.log('Node added: ', addedNode);
         if (addedNode.id == 'KioskBoard-VirtualKeyboard') {
@@ -199,16 +201,16 @@ document.addEventListener('DOMContentLoaded', function (event) {
           onVirtualKeyboardOpened();
         }
       });
-    });
 
-    // Loop through any nodes that were removed and look for the virtual keyboard
-    mutations.forEach(function (mutation) {
-      mutation.removedNodes.forEach(function (removedNode) {
-        console.log('Node removed: ', removedNode);
-        if (removedNode.id == 'KioskBoard-VirtualKeyboard') {
-          console.log('Virtual keyboard has been removed.');
-          onVirtualKeyboardClosed();
-        }
+      // Loop through any nodes that were removed and look for the virtual keyboard
+      mutations.forEach(function (mutation) {
+        mutation.removedNodes.forEach(function (removedNode) {
+          console.log('Node removed: ', removedNode);
+          if (removedNode.id == 'KioskBoard-VirtualKeyboard') {
+            console.log('Virtual keyboard has been removed.');
+            onVirtualKeyboardClosed();
+          }
+        });
       });
     });
   });
