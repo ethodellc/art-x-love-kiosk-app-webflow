@@ -77,6 +77,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
     onVirtualKeyboardOpened();
   });
 
+  searchInputElement.addEventListener('click', function (e) {
+    console.log('search input has received focus');
+  });
+
   searchInputElement.addEventListener('keyup', function (e) {
     console.log('keyup event detected on search input');
     onSearchTermEntered(e.target.value);
@@ -199,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   console.log('setting up observer for watching when virtual keyboard is opened or closed...');
   const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
+      console.log('Looping through DOM mutations...');
       // Loop through any nodes that were added and look for the virtual keyboard
       mutation.addedNodes.forEach(function (addedNode) {
         console.log('Node added: ', addedNode);
