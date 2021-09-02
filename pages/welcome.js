@@ -65,6 +65,6 @@ document.addEventListener('click', function (event) {
     return;
   } else {
     event.preventDefault();
-    onWelcomeScreenClicked();
+    //onWelcomeScreenClicked();
   }
 }, false);
