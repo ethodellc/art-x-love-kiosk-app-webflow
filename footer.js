@@ -159,6 +159,10 @@ function onKioskUserInactiveForTooLong() {
   }
 }
 
+function onStoriesLinkClicked() {
+  showRandomStory();
+}
+
 // resets the inactity timer by stetting the start time to now
 function resetStartTime() {
   //console.log('Reseting inactivity timer to start tracking now.');
@@ -269,6 +273,9 @@ function startTimer() {
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log('DOM is ready, starting timer...')
   startTimer();
+
+  console.log('Overriding footer navigation link for stories link.');
+  document.getElementById('js-footer-stories-link').addEventListener('click', onStoriesLinkClicked);
 
   // Leaving this in here for now, as carry over from POC, may not need for
   // final launch
