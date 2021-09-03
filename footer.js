@@ -245,6 +245,7 @@ function startInactivityTimer() {
 
   // This function will run every second (1000ms)
   userInactivityTimer = window.setInterval(function () {
+    console.log('kiosk tick');
 
     // How many minutes has the kiosk user been inactive for?
     let minutesElapsed = getMinutesOfInactivitySince(startTime);
