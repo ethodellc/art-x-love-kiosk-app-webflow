@@ -275,7 +275,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
   startTimer();
 
   console.log('Overriding footer navigation link for stories link.');
-  document.getElementById('js-footer-stories-link').addEventListener('click', onStoriesLinkClicked);
+  document.getElementById('js-footer-stories-link').addEventListener('click', function (e) {
+    e.preventDefault();
+    onStoriesLinkClicked();
+  });
 
   console.log('Detecting external images...');
   // Find all collection items that need to set their src attribute from 
@@ -283,19 +286,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
   let dynamicImages = document.querySelectorAll('.js-dynamic-external-image');
 
   if (dynamicImages && dynamicImages.length) {
-    console.log(dynamicImages.length + ' dynamic images found.');
+    // For each collection item found found, set the src of the image to
+    // the hidden text field
+    dynamicImages.forEach((dynamicImageWrapper) => {
+      let dynamicImage = dynamicImageWrapper.querySelector('.js-dynamic-external-image--image');
+      let imageLink = dynamicImageWrapper.querySelector('.js-dynamic-external-image--link').innerText;
+      dynamicImage.src = imageLink;
+    });
   }
-
-  // For each collection item found found, set the src of the image to
-  // the hidden text field
-  dynamicImages.forEach((dynamicImageWrapper) => {
-    let dynamicImage = dynamicImageWrapper.querySelector('.js-dynamic-external-image--image');
-    console.log('Dynamic image: ', dynamicImage);
-    let imageLink = dynamicImageWrapper.querySelector('.js-dynamic-external-image--link').innerText;
-    console.log('Dynamic image link should be: ', imageLink);
-    dynamicImage.src = imageLink;
-    console.log('Dynamic image src is now:', dynamicImage.src);
-  });
 
   // Leaving this in here for now, as carry over from POC, may not need for
   // final launch
