@@ -248,6 +248,9 @@ function startInactivityTimer() {
 
     // How many minutes has the kiosk user been inactive for?
     let minutesElapsed = getMinutesOfInactivitySince(startTime);
+    console.log('Minutes elapsed: ', minutesElapsed);
+    console.log('Max minutes: ', getMaxMinutesOfInactivity());
+    console.log('Is inactive too long? ', minutesElapsed >= getMaxMinutesOfInactivity());
 
     // Have we gone past the maximum number of allowed minutes of inactivy?
     if (minutesElapsed >= getMaxMinutesOfInactivity()) {
