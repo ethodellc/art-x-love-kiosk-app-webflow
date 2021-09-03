@@ -277,6 +277,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
   console.log('Overriding footer navigation link for stories link.');
   document.getElementById('js-footer-stories-link').addEventListener('click', onStoriesLinkClicked);
 
+  console.log('Detecting external images...');
+  // Find all collection items that need to set their src attribute from 
+  // an external link
+  let dynamicImages = document.querySelectorAll('.js-dynamic-external-image');
+
+  // For each collection item found found, set the src of the image to
+  // the hidden text field
+  dynamicImages.forEach((dynamicImageWrapper) => {
+    let dynamicImage = dynamicImageWrapper.querySelector('.js-dynamic-external-image--image');
+    let imageLink = dynamicImageWrapper.querySelector('.js-dynamic-external-image--link').innerText;
+    dynamicImage.src = imageLink;
+  });
+
   // Leaving this in here for now, as carry over from POC, may not need for
   // final launch
   // If we are viewing in the actual kiosk (and not on the web), then we need to remove
