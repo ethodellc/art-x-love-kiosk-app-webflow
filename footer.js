@@ -131,7 +131,7 @@ function isOnStoriesScreen() {
 
 // This function is called if user activity is detected
 function onKioskUserActive() {
-  //console.log('Kiosk user is active, restarting inactivity timer.');
+  console.log('Kiosk user is active, restarting inactivity timer.');
   restartTimer();
 }
 
@@ -165,7 +165,7 @@ function onStoriesLinkClicked() {
 
 // resets the inactity timer by stetting the start time to now
 function resetStartTime() {
-  //console.log('Reseting inactivity timer to start tracking now.');
+  console.log('Reseting inactivity timer to start tracking now.');
   let startTime = new Date();
   sessionStorage.setItem("startTime", startTime);
   return startTime;
@@ -175,7 +175,7 @@ function resetStartTime() {
 // then starts the time loop again
 function restartTimer() {
   resetStartTime();
-  startTimer();
+  startInactivityTimer();
 }
 
 // Sets the maximum number of minutes of inactivity
@@ -236,8 +236,8 @@ function showWelcomeScreen() {
 }
 
 // Starts the inactivity timer if it has not been started already
-function startTimer() {
-  //console.log('Starting or resuming inactivity timer loop...');
+function startInactivityTimer() {
+  console.log('Starting or resuming inactivity timer loop...');
   // This will first attempt to get a timer out of storage.  If it doesn't exist yet, it will restart the timer
   let startTime = new Date(
     sessionStorage.getItem("startTime") || resetStartTime()
@@ -253,15 +253,15 @@ function startTimer() {
     if (minutesElapsed >= getMaxMinutesOfInactivity()) {
       console.log('User has been inactive for too long:  ' + minutesElapsed + ' minutes of inactivity. Stopping inactivity timer loop.');
       clearInterval(userInactivityTimer);
-      resetStartTime()
+      resetStartTime();
       dispatchUserInactiveForTooLongEvent();
     }
   }, 1000);
 
   window.dispatchEvent(new CustomEvent("akronStories.timerStarted"));
   timerStartedAt = getStartTime();
-  //console.log('Initial start time: ', timerStartedAt);
-  //console.log('Minutes of inactivity since timer initially started: ', getMinutesOfInactivitySince(timerStartedAt));
+  console.log('Initial start time: ', timerStartedAt);
+  console.log('Minutes of inactivity since timer initially started: ', getMinutesOfInactivitySince(timerStartedAt));
 }
 
 
@@ -271,8 +271,8 @@ function startTimer() {
 //
 ///////////////
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('DOM is ready, starting timer...')
-  startTimer();
+  console.log('DOM is ready, starting inactivity timer...')
+  startInactivityTimer();
 
   console.log('Overriding footer navigation link for stories link.');
   document.getElementById('js-footer-stories-link').addEventListener('click', function (e) {
