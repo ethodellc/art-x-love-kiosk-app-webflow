@@ -131,7 +131,7 @@ function isOnStoriesScreen() {
 
 // This function is called if user activity is detected
 function onKioskUserActive() {
-  console.log('Kiosk user is active, restarting inactivity timer.');
+  //console.log('Kiosk user is active, restarting inactivity timer.');
   restartTimer();
 }
 
@@ -165,7 +165,7 @@ function onStoriesLinkClicked() {
 
 // resets the inactity timer by stetting the start time to now
 function resetStartTime() {
-  console.log('Reseting inactivity timer to start tracking now.');
+  //console.log('Reseting inactivity timer to start tracking now.');
   let startTime = new Date();
   sessionStorage.setItem("startTime", startTime);
   return startTime;
@@ -264,8 +264,8 @@ function startInactivityTimer() {
 
   window.dispatchEvent(new CustomEvent("akronStories.timerStarted"));
   timerStartedAt = getStartTime();
-  console.log('Initial start time: ', timerStartedAt);
-  console.log('Minutes of inactivity since timer initially started: ', getMinutesOfInactivitySince(timerStartedAt));
+  //console.log('Initial start time: ', timerStartedAt);
+  //console.log('Minutes of inactivity since timer initially started: ', getMinutesOfInactivitySince(timerStartedAt));
 }
 
 
