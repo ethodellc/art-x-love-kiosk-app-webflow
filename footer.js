@@ -279,10 +279,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
   startInactivityTimer();
 
   console.log('Overriding footer navigation link for stories link.');
-  document.getElementById('js-footer-stories-link').addEventListener('click', function (e) {
-    e.preventDefault();
-    onStoriesLinkClicked();
-  });
+  let footerStoriesLink = document.getElementById('js-footer-stories-link');
+
+  if (footerStoriesLink) {
+    footerStoriesLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      onStoriesLinkClicked();
+    });
+  }
 
   console.log('Detecting external images...');
   // Find all collection items that need to set their src attribute from 
