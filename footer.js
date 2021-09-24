@@ -225,8 +225,27 @@ function showContinueWatchingPrompt() {
  * @see getRandomStoryLink
  */
 function showRandomStory() {
-  console.log('Showing a random story...')
-  window.location.href = getRandomStoryLink();
+  console.log('Showing a random story...');
+
+  // Is the continue watching prompt on this page?
+  let continueWatchingPrompt = document.getElementById('js-continue-watching-prompt');
+
+
+  // If so, is it displayed/visible?
+  // Then we need to delay showing a random story for now
+  if (continueWatchingPrompt && continueWatchingPrompt.style.opacity == "100") {
+    console.log('Continue watching prompt is visible, so delaying showing a random story for now.');
+    let continueWatchingButton = document.getElementById('js-continue-watching-button');
+
+    continueWatchingButton.addEventListener('click', event => {
+      console.log('Kiosk user chose to continue watching.  Resuming the original action of showing a random story...');
+      hideContinueWatchingPrompt();
+      restartTimer();
+      window.location.href = getRandomStoryLink();
+    });
+  } else {
+    window.location.href = getRandomStoryLink();
+  }
 }
 
 // The welcome screen is the home screen, so we return to the index
