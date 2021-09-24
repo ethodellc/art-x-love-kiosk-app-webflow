@@ -5,6 +5,7 @@ console.log("current page: " + window.location.pathname);
  * Trac
  */
 let kioskScreen = null;
+let showRandomStoryAfterContinueWatchingButtonClicked = false;
 
 ///////////
 //
@@ -129,6 +130,17 @@ function isOnStoriesScreen() {
   return kioskScreen == "stories" || window.location.pathname.indexOf("/stories") == 0;
 }
 
+function onContinueWatchingButtonClicked() {
+  console.log('Kiosk user chose to continue watching.');
+  hideContinueWatchingPrompt();
+  restartTimer();
+
+  if (showRandomStoryAfterContinueWatchingButtonClicked) {
+    console.log('Resuming the original action of showing a random story...');
+    window.location.href = getRandomStoryLink();
+  }
+}
+
 // This function is called if user activity is detected
 function onKioskUserActive() {
   //console.log('Kiosk user is active, restarting inactivity timer.');
@@ -230,19 +242,11 @@ function showRandomStory() {
   // Is the continue watching prompt on this page?
   let continueWatchingPrompt = document.getElementById('js-continue-watching-prompt');
 
-
   // If so, is it displayed/visible?
   // Then we need to delay showing a random story for now
   if (continueWatchingPrompt && continueWatchingPrompt.style.opacity == "100") {
     console.log('Continue watching prompt is visible, so delaying showing a random story for now.');
-    let continueWatchingButton = document.getElementById('js-continue-watching-button');
-
-    continueWatchingButton.addEventListener('click', event => {
-      console.log('Kiosk user chose to continue watching.  Resuming the original action of showing a random story...');
-      hideContinueWatchingPrompt();
-      restartTimer();
-      window.location.href = getRandomStoryLink();
-    });
+    showRandomStoryAfterContinueWatchingButtonClicked = true;
   } else {
     window.location.href = getRandomStoryLink();
   }
@@ -320,6 +324,13 @@ document.addEventListener('DOMContentLoaded', function (event) {
       let imageLink = dynamicImageWrapper.querySelector('.js-dynamic-external-image--link').innerText;
       dynamicImage.src = imageLink;
     });
+  }
+
+  // Check to see if we the continue watching button exists -- if it does, add a click event.
+  let continueWatchingButton = document.getElementById('js-continue-watching-button');
+
+  if (continueWatchingButton) {
+    continueWatchingButton.addEventListener('click', onContinueWatchingButtonClicked);
   }
 
   // Leaving this in here for now, as carry over from POC, may not need for
