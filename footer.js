@@ -355,6 +355,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
       })
     }
   }
+
+  // While this would normally be a good thing, we need to remove the integrity checks so that
+  // the site will work properly when downloaded for offline mode via the Electron build process
+  document.querySelectorAll('[integrity]').forEach(function (integrityElement) {
+    integrityElement.removeAttribute('integrity');
+  });
 });
 
 // When the user becomes active...
