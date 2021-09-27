@@ -333,8 +333,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     continueWatchingButton.addEventListener('click', onContinueWatchingButtonClicked);
   }
 
-  // Leaving this in here for now, as carry over from POC, may not need for
-  // final launch
   // If we are viewing in the actual kiosk (and not on the web), then we need to remove
   // the extra padding that is placed on the video element for the embedded
   // video since it is no longer loaded dynamically.

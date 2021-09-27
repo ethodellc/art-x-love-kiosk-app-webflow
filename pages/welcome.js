@@ -23,7 +23,7 @@ function buildStoryLink(defaultStoryLink) {
     storyLink = kioskRoot + defaultStoryLink + "/index.html";
 
     // Make sure we do not have any accidental double-slashes
-    storyLink = slideLink.replace(/\/+/g, "/");
+    storyLink = storyLink.replace(/\/+/g, "/");
     console.log('story link altered for electron context: ' + storyLink);
     return storyLink;
   } else {
