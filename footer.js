@@ -338,25 +338,25 @@ document.addEventListener('DOMContentLoaded', function (event) {
   // If we are viewing in the actual kiosk (and not on the web), then we need to remove
   // the extra padding that is placed on the video element for the embedded
   // video since it is no longer loaded dynamically.
-  /*if (isElectron()) {
-  let videoPlayer = document.getElementById('js-video-player');
-if (videoPlayer) {
-  // Hide the navigation menu
-  let nav = document.querySelector('.menu-wrapper');
-nav.style.display = "none";
+  if (isElectron()) {
+    let videoPlayer = document.getElementById('js-video-player');
+    if (videoPlayer) {
+      // Hide the navigation menu
+      let nav = document.querySelector('.menu-wrapper');
+      nav.style.display = "none";
 
-// Remove any extra padding on the top of the video
-videoPlayer.style.paddingTop = "0%";
+      // Remove any extra padding on the top of the video
+      videoPlayer.style.paddingTop = "0%";
 
-// Make the video fill the width of the screen
-videoPlayer.width = "100%";
+      // Make the video fill the width of the screen
+      videoPlayer.width = "100%";
 
-// If user activity is detected, show the nav menu again
-window.addEventListener('akronStories.userActive', function (event) {
-  nav.style.display = "block";
-        })
-      }
-  }*/
+      // If user activity is detected, show the nav menu again
+      window.addEventListener('akronStories.userActive', function (event) {
+        nav.style.display = "block";
+      })
+    }
+  }
 });
 
 // When the user becomes active...
