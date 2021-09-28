@@ -301,6 +301,35 @@ document.addEventListener('DOMContentLoaded', function (event) {
   console.log('DOM is ready, starting inactivity timer...')
   startInactivityTimer();
 
+  // Listen for elements being added to the DOM after it has
+  // been loaded.
+  // We need to do this in order to remove the made with webflow
+  // badge in kiosk mode on localhost
+  // Source: https://stackoverflow.com/a/10415599
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      console.log('DOM mutation detected: ', mutation);
+      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+        // element added to DOM
+        var hasClass = [].some.call(mutation.addedNodes, function (el) {
+          if (el.classList.contains('w-webflow-badge')) {
+            el.parentElement.removeChild(el);
+            console.log('webflow badge detected and removed');
+            delete el;
+          }
+        });
+      }
+    });
+  });
+
+  var config = {
+    attributes: true,
+    childList: true,
+    characterData: true
+  };
+
+  observer.observe(document.body, config);
+
   console.log('Overriding footer navigation link for stories link.');
   let footerStoriesLink = document.getElementById('js-footer-stories-link');
 
