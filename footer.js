@@ -255,7 +255,19 @@ function showRandomStory() {
 // The welcome screen is the home screen, so we return to the index
 function showWelcomeScreen() {
   console.log('Showing the welcome screen...');
-  window.location.href = "/";
+
+  if (isElectron()) {
+    let kioskRoot = window.electron.api.getKioskRoot();
+    console.log('electron context detected ... kiosk root: ' + kioskRoot);
+    welcomeScreenLink = kioskRoot + "/index.html";
+
+    // Make sure we do not have any accidental double-slashes
+    welcomeScreenLink = welcomeScreenLink.replace(/\/+/g, "/");
+    console.log('welcome screen link altered for electron context: ' + welcomeScreenLink);
+    window.location.href = welcomeScreenLink;
+  } else {
+    window.location.href = "/";
+  }
 }
 
 // Starts the inactivity timer if it has not been started already
