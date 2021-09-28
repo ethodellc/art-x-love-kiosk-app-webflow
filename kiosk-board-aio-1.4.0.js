@@ -69,6 +69,8 @@
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
   var kioskBoardGithubUrl = 'https://github.com/furcan/KioskBoard';
+  var haveKioskBoardClickEventsBeenDefined = false;
+
   // KioskBoard: Default Options: end
 
   // KioskBoard: Extend Options: begin
@@ -711,58 +713,64 @@
           // append keyboard: begin
           var keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
           console.log('KioskBoard: Keyboard element: ', keyboardElement);
-          if (!keyboardElement) {
-            console.log('KioskBoard: Preparing to append kiosk board to body...');
-            // append the keyboard to body
-            window.document.body.appendChild(kioskBoardVirtualKeyboard);
-            keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
 
-            // check window and keyboard height: begin
-            var windowHeight = Math.round(window.innerHeight);
-            var documentHeight = Math.round(window.document.body.clientHeight);
-            var keyboardHeight = Math.round(window.document.getElementById(kioskBoardVirtualKeyboard.id).offsetHeight);
-            if (keyboardHeight > Math.round((windowHeight / 3) * 2)) {
-              var keyboardWrapper = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-wrapper')[0];
-              keyboardWrapper.style.maxHeight = Math.round((windowHeight / 5) * 4) + 'px';
-              keyboardWrapper.style.overflowX = 'hidden';
-              keyboardWrapper.style.overflowY = 'auto';
-              keyboardWrapper.classList.add('kioskboard-overflow');
-            }
-            // check window and keyboard height: end
+          // In the case of the Electron version, the keyboard will already have been built
+          // but not the click events
+          if (!keyboardElement || !haveKioskBoardClickEventsBeenDefined) {
 
-            // body padding bottom: begin
-            var inputTop = theInput.getBoundingClientRect().top || 0;
-            var docTop = window.document.documentElement.scrollTop || 0;
-            var theInputOffsetTop = Math.round(inputTop + docTop) - 50;
-            if (documentHeight <= theInputOffsetTop + keyboardHeight) {
-              var styleElm = window.document.getElementById('KioskboardBodyPadding');
-              if (styleElm && styleElm.parentNode !== null) {
-                styleElm.parentNode.removeChild(styleElm);
+            if (!keyboardElement) {
+              console.log('KioskBoard: Preparing to append kiosk board to body...');
+              // append the keyboard to body
+              window.document.body.appendChild(kioskBoardVirtualKeyboard);
+              keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
+
+              // check window and keyboard height: begin
+              var windowHeight = Math.round(window.innerHeight);
+              var documentHeight = Math.round(window.document.body.clientHeight);
+              var keyboardHeight = Math.round(window.document.getElementById(kioskBoardVirtualKeyboard.id).offsetHeight);
+              if (keyboardHeight > Math.round((windowHeight / 3) * 2)) {
+                var keyboardWrapper = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-wrapper')[0];
+                keyboardWrapper.style.maxHeight = Math.round((windowHeight / 5) * 4) + 'px';
+                keyboardWrapper.style.overflowX = 'hidden';
+                keyboardWrapper.style.overflowY = 'auto';
+                keyboardWrapper.classList.add('kioskboard-overflow');
+              }
+              // check window and keyboard height: end
+
+              // body padding bottom: begin
+              var inputTop = theInput.getBoundingClientRect().top || 0;
+              var docTop = window.document.documentElement.scrollTop || 0;
+              var theInputOffsetTop = Math.round(inputTop + docTop) - 50;
+              if (documentHeight <= theInputOffsetTop + keyboardHeight) {
+                var styleElm = window.document.getElementById('KioskboardBodyPadding');
+                if (styleElm && styleElm.parentNode !== null) {
+                  styleElm.parentNode.removeChild(styleElm);
+                }
+
+                var style = '<style id="KioskboardBodyPadding">.kioskboard-body-padding {padding-bottom:' + keyboardHeight + 'px !important;}</style>';
+                var styleRange = window.document.createRange();
+                styleRange.selectNode(window.document.head);
+                var styleFragment = styleRange.createContextualFragment(style);
+                window.document.head.appendChild(styleFragment);
+                window.document.body.classList.add('kioskboard-body-padding');
               }
 
-              var style = '<style id="KioskboardBodyPadding">.kioskboard-body-padding {padding-bottom:' + keyboardHeight + 'px !important;}</style>';
-              var styleRange = window.document.createRange();
-              styleRange.selectNode(window.document.head);
-              var styleFragment = styleRange.createContextualFragment(style);
-              window.document.head.appendChild(styleFragment);
-              window.document.body.classList.add('kioskboard-body-padding');
-            }
-
-            var autoScroll = opt.autoScroll === true;
-            var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
-            var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
-            if (autoScroll) {
-              var userAgent = navigator.userAgent.toLocaleLowerCase('en');
-              if (userAgent.indexOf('edge') <= -1 && userAgent.indexOf('.net4') <= -1) {
-                var scrollTimeout = setTimeout(function () {
-                  window.scrollTo({ top: theInputOffsetTop, left: 0, behavior: scrollBehavior });
-                  clearTimeout(scrollTimeout);
-                }, scrollDelay);
-              } else {
-                window.document.documentElement.scrollTop = theInputOffsetTop;
+              var autoScroll = opt.autoScroll === true;
+              var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
+              var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
+              if (autoScroll) {
+                var userAgent = navigator.userAgent.toLocaleLowerCase('en');
+                if (userAgent.indexOf('edge') <= -1 && userAgent.indexOf('.net4') <= -1) {
+                  var scrollTimeout = setTimeout(function () {
+                    window.scrollTo({ top: theInputOffsetTop, left: 0, behavior: scrollBehavior });
+                    clearTimeout(scrollTimeout);
+                  }, scrollDelay);
+                } else {
+                  window.document.documentElement.scrollTop = theInputOffsetTop;
+                }
               }
-            }
-            // body padding bottom: end
+              // body padding bottom: end
+            } // if keyboard not built yet, end
 
             // keyboard keys click listeners
             console.log('KioskBoard - calling keysClickListeners');
@@ -799,6 +807,9 @@
             };
             window.document.addEventListener('click', docClickListener); // add document click listener
             // keyboard click outside listener: end
+
+            // This ensures we do not add multiple event handlers for the same event
+            haveKioskBoardClickEventsBeenDefined = true;
           }
           // append keyboard: end
         };
