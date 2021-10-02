@@ -395,20 +395,23 @@ document.addEventListener('DOMContentLoaded', function (event) {
   if (isElectron()) {
     let videoPlayer = document.getElementById('js-video-player');
     if (videoPlayer) {
-      // Hide the navigation menu
+      // Hide the navigation menu if it is on the page
       let nav = document.querySelector('.menu-wrapper');
-      nav.style.display = "none";
+
+      if (nav) {
+        nav.style.display = "none";
+
+        // If user activity is detected, show the nav menu again
+        window.addEventListener('akronStories.userActive', function (event) {
+          nav.style.display = "block";
+        })
+      }
 
       // Remove any extra padding on the top of the video
       videoPlayer.style.paddingTop = "0%";
 
       // Make the video fill the width of the screen
       videoPlayer.width = "100%";
-
-      // If user activity is detected, show the nav menu again
-      window.addEventListener('akronStories.userActive', function (event) {
-        nav.style.display = "block";
-      })
     }
   }
 
