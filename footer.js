@@ -352,19 +352,34 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
   }
 
-  console.log('Detecting external images...');
-  // Find all collection items that need to set their src attribute from 
-  // an external link
-  let dynamicImages = document.querySelectorAll('.js-dynamic-external-image');
+  // We only need to do yjid check for dynamically swapped images on the Webflow site.
+  // For images stored on Google Drive, Google's "Share" link
+  // only gives you a proxy to the image. If you actually try to use the direct
+  // link to an image file, Google returns a permission error.
+  // When the site is downloaded for offline use in the kiosk by Site Sucker Pro,
+  // it actually downloads the real file and references it accordingly in the image
+  // tag, removing the need for us to dynamically create it like we need to
+  // when we are accessing the app via Webflow.
+  //
+  // SEE: https://trello.com/c/2cQ72wS7/91-10-2-21-fix-issue-with-broken-images-on-stories-screen-on-kiosk-display-only
+  if (isElectron()) {
+    console.log('Ignoring the dynamic swap for Google Drive hosted files, as we are in Electron mode.');
+  } else {
+    console.log('Detecting external images...');
+    // Find all collection items that need to set their src attribute from 
+    // an external link
+    let dynamicImages = document.querySelectorAll('.js-dynamic-external-image');
 
-  if (dynamicImages && dynamicImages.length) {
-    // For each collection item found found, set the src of the image to
-    // the hidden text field
-    dynamicImages.forEach((dynamicImageWrapper) => {
-      let dynamicImage = dynamicImageWrapper.querySelector('.js-dynamic-external-image--image');
-      let imageLink = dynamicImageWrapper.querySelector('.js-dynamic-external-image--link').innerText;
-      dynamicImage.src = imageLink;
-    });
+    if (dynamicImages && dynamicImages.length) {
+      // For each collection item found found, set the src of the image to
+      // the hidden text field
+      dynamicImages.forEach((dynamicImageWrapper) => {
+        let dynamicImage = dynamicImageWrapper.querySelector('.js-dynamic-external-image--image');
+        let imageLink = dynamicImageWrapper.querySelector('.js-dynamic-external-image--link').innerText;
+
+        dynamicImage.src = imageLink;
+      });
+    }
   }
 
   // Check to see if we the continue watching button exists -- if it does, add a click event.
