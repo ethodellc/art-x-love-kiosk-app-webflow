@@ -48,16 +48,16 @@ function dispatchUserInactiveForTooLongEvent() {
 }
 
 // return the maximum number of minutes of inactivity allowed
-// defaults to 10 minutes if it has not been set
+// defaults to 5 minutes if it has not been set
 function getMaxMinutesOfInactivity() {
-  return parseInt(sessionStorage.getItem("maxMinutesOfInactivity"), 10) || 10;
+  return parseInt(sessionStorage.getItem("maxMinutesOfInactivity"), 10) || 5;
 }
 
 // returns the maximum number of minutes to show the continue
 // watching prompt
-// defaults to 3 mimnutes if it has not been set
+// defaults to 1 minute if it has not been set
 function getMaxMinutesToShowContinueWatchingPrompt() {
-  return parseInt(sessionStorage.getItem("maxMinutesToShowContinueWatchingPrompt"), 10) || 3;
+  return parseInt(sessionStorage.getItem("maxMinutesToShowContinueWatchingPrompt"), 10) || 1;
 }
 
 // 
